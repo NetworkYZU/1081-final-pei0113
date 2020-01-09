@@ -36,6 +36,18 @@ public class LoginAction extends HttpServlet {
         //並轉址到 showNotes.jsp
         //否則轉址到 index.jsp
         //請使用外轉址 (30%)
+        UserData user = Logins.getUserData(id);
+        if (user == null){
+            response.sendRedirect("index.jsp");
+        }else{
+            String true_password = user.getPassword();
+            if (password.equals(true_password)){
+                session.setAttribute("user", user);
+                response.sendRedirect("showNotes.jsp");
+            }else{
+                response.sendRedirect("index.jsp");
+            }
+        }
         
         ////////////////////////////////////////////////////
     }
